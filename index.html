@@ -11,8 +11,6 @@
         <symbol id="icon-menu" viewBox="0 0 24 24">
             <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
         </symbol>
-    </svg>
-    <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
         <symbol id="icon-close" viewBox="0 0 24 24">
             <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
         </symbol>
@@ -24,7 +22,7 @@
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
     <style>
-        /* --- Global Styles --- */
+        /* --- Global Styles (Unchanged) --- */
         body {
             font-family: 'Kantumruy Pro', sans-serif;
             background-color: #f0f2f5; 
@@ -34,7 +32,7 @@
             line-height: 1.6;
         }
 
-        /* --- Header Styles --- */
+        /* --- Header Styles (Unchanged) --- */
         .main-header {
             background-color: #ffffff; 
             border-bottom: 1px solid #e0e0e0;
@@ -74,8 +72,45 @@
             height: 28px;
             transition: transform 0.3s;
         }
+
+        /* --- New: Navigation Menu/Tabs Styles --- */
+        .main-nav {
+            background-color: #f7f9fb;
+            border-bottom: 2px solid #e0e0e0;
+            overflow-x: auto;
+        }
         
-        /* --- Controls in Header --- */
+        .nav-list {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            list-style: none;
+            display: flex;
+            gap: 20px;
+        }
+        
+        .nav-item a {
+            display: block;
+            padding: 12px 0;
+            text-decoration: none;
+            color: #555;
+            font-weight: 600;
+            transition: color 0.3s, border-bottom 0.3s;
+            border-bottom: 3px solid transparent;
+            text-wrap: nowrap;
+        }
+        
+        .nav-item a:hover {
+            color: #007bff;
+        }
+        
+        .nav-item a.active {
+            color: #007bff;
+            border-bottom: 3px solid #007bff;
+        }
+        /* --- End Navigation Menu Styles --- */
+
+        /* --- Controls in Header (Moved to Report Page Section) --- */
         .controls-header-wrapper {
             max-width: 1200px;
             margin: 0 auto;
@@ -109,7 +144,7 @@
         }
         /* --- End Controls Section --- */
 
-        /* --- Main Content --- */
+        /* --- Main Content (Unchanged) --- */
         main {
             padding: 20px;
         }
@@ -136,20 +171,21 @@
             display: flex;
             align-items: center;
             gap: 10px;
+            margin-bottom: 20px;
         }
         #found-count {
             color: #007bff;
             font-size: 1.4em;
         }
         
-        /* --- Stats Section (Improved Style) --- */
+        /* --- Stats Section (Improved Style) - Unchanged --- */
         .stats-summary {
             display: flex;
             justify-content: space-between;
             gap: 20px;
             flex-wrap: wrap;
             margin-bottom: 25px;
-            padding: 10px;
+            padding: 10px 0; /* Adjusted padding */
         }
 
         .stat-card {
@@ -229,7 +265,7 @@
         tbody tr:nth-child(even) { background-color: #f7f9fb; }
         tbody tr:hover { background-color: #e9f7ff; }
 
-        /* --- Card View (Mobile) --- */
+        /* --- Card View (Mobile) - Unchanged --- */
         #card-view-container { display: none; } 
 
         .data-card {
@@ -257,8 +293,7 @@
         .card-body p strong { color: #333; font-weight: 600; margin-right: 10px; }
         .card-body p span { color: #555; text-align: right; font-weight: 500;}
 
-
-        /* --- SWIPER CSS --- */
+        /* --- SWIPER CSS (Unchanged) --- */
         .card-swiper { width: 100%; height: auto; padding-bottom: 40px !important; }
         .swiper-slide { height: auto; padding: 0 10px; box-sizing: border-box; }
         :root { --swiper-theme-color: #007bff; --swiper-navigation-size: 30px; }
@@ -268,7 +303,7 @@
             display: none !important;
         }
 
-        /* --- Loader Overlay --- */
+        /* --- Loader Overlay (Unchanged) --- */
         .loading-overlay {
             position: absolute;
             top: 0;
@@ -302,10 +337,12 @@
             
             .header-container { padding: 15px; }
             .mobile-nav-toggle { display: block; } 
+
+            /* Hide Desktop Nav on Mobile */
             
             .controls-header-wrapper {
                 padding: 15px;
-                position: absolute;
+                position: fixed;
                 top: 58px; 
                 left: 0;
                 right: 0;
@@ -313,6 +350,7 @@
                 border-top: 1px solid #f0f0f0;
                 box-shadow: 0 4px 8px rgba(0,0,0,0.1);
                 display: none; 
+                z-index: 9999; /* Ensure controls are above main content when open */
             }
 
             .controls-header-wrapper.controls-visible { display: block; }
@@ -323,7 +361,7 @@
             
             .container {
                 padding: 15px;
-                background-color: #ffffff; /* Keep background white on mobile container */
+                background-color: #ffffff;
                 box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08); 
             }
 
@@ -360,13 +398,18 @@
                 <svg width="24" height="24"><use href="#icon-menu"></use></svg>
             </button>
         </div>
-
-        <div class="controls-header-wrapper" id="mobile-collapsible-controls">
-            <div class="controls">
-                <input type="text" id="searchInput" placeholder="ស្វែងរកតាមឈ្មោះ ឬ ID...">
-                <select id="dateDropdown"></select>
-            </div>
-        </div>
+        
+        <nav class="main-nav">
+            <ul class="nav-list">
+                <li class="nav-item">
+                    <a href="#" class="nav-link active" data-page="home-page" id="home-nav-link">🏠 ទំព័រដើម (Dashboard)</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" data-page="report-page" id="report-nav-link">📝 របាយការណ៍លម្អិត (Detail Report)</a>
+                </li>
+            </ul>
+        </nav>
+        
     </header>
     
     <main>
@@ -376,74 +419,84 @@
                 <div class="loader"></div>
             </div>
 
-            <div class="stats-summary" id="stats-summary">
-                <div class="stat-card stat-complete">
-                    <div class="icon-wrap"><i class="fas fa-check-circle"></i></div>
-                    <div class="info">
-                        <p class="label">វត្តមានពេញលេញ</p>
-                        <p class="value" id="total-complete">0</p>
+            <div id="home-page">
+                <h2 style="text-align: center;">📊 ទិដ្ឋភាពសង្ខេប (Summary Dashboard)</h2>
+                <div class="stats-summary" id="stats-summary">
+                    <div class="stat-card stat-complete">
+                        <div class="icon-wrap"><i class="fas fa-check-circle"></i></div>
+                        <div class="info">
+                            <p class="label">វត្តមានពេញលេញ</p>
+                            <p class="value" id="total-complete">0</p>
+                        </div>
                     </div>
+
+                    <div class="stat-card stat-checkin">
+                        <div class="icon-wrap"><i class="fas fa-sign-in-alt"></i></div>
+                        <div class="info">
+                            <p class="label">ស្កេនចូលតែប៉ុណ្ណោះ</p>
+                            <p class="value" id="total-checkin">0</p>
+                        </div>
+                    </div>
+
+                    <div class="stat-card stat-incomplete">
+                        <div class="icon-wrap"><i class="fas fa-times-circle"></i></div>
+                        <div class="info">
+                            <p class="label">មិនពេញលេញ / អវត្តមាន</p>
+                            <p class="value" id="total-incomplete">0</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="report-page" style="display: none;">
+                 <h2 style="text-align: center;">📝 របាយការណ៍លម្អិត (Detail Report)</h2>
+                
+                <div class="controls-header-wrapper" id="report-controls">
+                    <div class="controls">
+                        <input type="text" id="searchInput" placeholder="ស្វែងរកតាមឈ្មោះ ឬ ID...">
+                        <select id="dateDropdown"></select>
+                    </div>
+                </div>
+                <div id="total-found">
+                    <span>ចំនួនសរុបដែលបានរកឃើញ:</span> <span id="found-count">0</span>
                 </div>
 
-                <div class="stat-card stat-checkin">
-                    <div class="icon-wrap"><i class="fas fa-sign-in-alt"></i></div>
-                    <div class="info">
-                        <p class="label">ស្កេនចូលតែប៉ុណ្ណោះ</p>
-                        <p class="value" id="total-checkin">0</p>
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ល.រ</th>
+                                <th>ឈ្មោះ (Name)</th>
+                                <th>ID បុគ្គលិក</th>
+                                <th>ស្កេនចូល (Check In)</th>
+                                <th>ស្កេនចេញ (Check Out)</th>
+                                <th>ថ្ងៃដែលបានស្កេន (Scan Date)</th>
+                            </tr>
+                        </thead>
+                        <tbody id="table-body">
+                        </tbody>
+                        <tfoot>
+                            <tr id="no-data-row" style="display: none;">
+                                <td colspan="6" style="text-align: center; color: #777;">
+                                    មិនមានទិន្នន័យត្រូវគ្នានឹងការស្វែងរកទេ។
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+                
+                <div id="card-view-container">
+                    <div class="swiper card-swiper">
+                        <div class="swiper-wrapper">
+                        </div>
+                        <div class="swiper-pagination"></div>
                     </div>
                 </div>
-
-                <div class="stat-card stat-incomplete">
-                    <div class="icon-wrap"><i class="fas fa-times-circle"></i></div>
-                    <div class="info">
-                        <p class="label">មិនពេញលេញ / អវត្តមាន</p>
-                        <p class="value" id="total-incomplete">0</p>
-                    </div>
+                
+                <div id="no-results" class="no-results" style="display: none; text-align: center; padding: 20px; color: #dc3545; font-weight: 600;">
+                    មិនមានទិន្នន័យត្រូវគ្នានឹងការស្វែងរកទេ។
                 </div>
             </div>
-            
-            <div id="total-found">
-                <span>ចំនួនសរុបដែលបានរកឃើញ:</span> <span id="found-count">0</span>
             </div>
-
-            
-            <div class="table-wrapper">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>ល.រ</th>
-                            <th>ឈ្មោះ (Name)</th>
-                            <th>ID បុគ្គលិក</th>
-                            <th>ស្កេនចូល (Check In)</th>
-                            <th>ស្កេនចេញ (Check Out)</th>
-                            <th>ថ្ងៃដែលបានស្កេន (Scan Date)</th>
-                        </tr>
-                    </thead>
-                    <tbody id="table-body">
-                    </tbody>
-                    <tfoot>
-                        <tr id="no-data-row" style="display: none;">
-                            <td colspan="6" style="text-align: center; color: #777;">
-                                មិនមានទិន្នន័យត្រូវគ្នានឹងការស្វែងរកទេ។
-                            </td>
-                        </tr>
-                    </tfoot>
-                </table>
-            </div>
-            
-            <div id="card-view-container">
-                <div class="swiper card-swiper">
-                    <div class="swiper-wrapper">
-                    </div>
-                    
-                    <div class="swiper-pagination"></div>
-                </div>
-            </div>
-            
-            <div id="no-results" class="no-results" style="display: none; text-align: center; padding: 20px; color: #dc3545; font-weight: 600;">
-                មិនមានទិន្នន័យត្រូវគ្នានឹងការស្វែងរកទេ។
-            </div>
-        </div>
     </main>
     
     
@@ -463,9 +516,65 @@
         const totalComplete = document.getElementById('total-complete');
         const totalCheckIn = document.getElementById('total-checkin');
         const totalIncomplete = document.getElementById('total-incomplete');
-
+        
+        // New Page Elements
+        const homePage = document.getElementById('home-page');
+        const reportPage = document.getElementById('report-page');
+        const reportControls = document.getElementById('report-controls'); // Controls inside report page
+        const navLinks = document.querySelectorAll('.nav-link');
+        const mobileNavToggle = document.querySelector('.mobile-nav-toggle');
+        const controlsHeaderWrapper = document.getElementById('report-controls'); // Reusing ID for simplicity
+        
         let cardSwiper = null; 
         let combinedData = []; 
+        let currentPage = 'home-page';
+
+        // --- NEW: Page Navigation Function ---
+        function showPage(pageId) {
+            currentPage = pageId;
+            // Hide all pages
+            homePage.style.display = 'none';
+            reportPage.style.display = 'none';
+
+            // Show selected page
+            document.getElementById(pageId).style.display = 'block';
+            
+            // Update active link class
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('data-page') === pageId) {
+                    link.classList.add('active');
+                }
+            });
+            
+            // Hide mobile filters if open
+            if (mobileNavToggle.getAttribute('aria-expanded') === 'true') {
+                // Since the mobile toggle is now attached to the report-controls (filters), 
+                // we should only close it if we switch pages.
+                controlsHeaderWrapper.classList.remove('controls-visible');
+                mobileNavToggle.setAttribute('aria-expanded', 'false');
+                mobileNavToggle.querySelector('use').setAttribute('href', '#icon-menu');
+            }
+            
+            // Re-initialize Swiper if navigating to the report page on mobile
+            if (pageId === 'report-page' && combinedData.length > 0 && window.innerWidth <= 768) {
+                if (!cardSwiper) {
+                    initSwiper(combinedData);
+                } else {
+                    cardSwiper.update();
+                }
+            }
+        }
+        
+        // Event Listeners for Page Navigation
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                showPage(link.getAttribute('data-page'));
+            });
+        });
+        
+        // --- End New: Page Navigation Function ---
 
         function showLoading(show) {
             loadingOverlay.style.display = show ? 'flex' : 'none';
@@ -596,7 +705,17 @@
             
             applyFilters(); 
             showLoading(false);
+            
+            // Start on the home page (Dashboard)
+            showPage('home-page'); 
         }
+
+        // Renamed function to avoid conflict with the new structure's flow
+        function updateAllStatsAndTables(data) {
+             updateStatsSummary(data); // Stats update logic remains the same
+             renderTableAndCards(data); // New function for table/card rendering
+        }
+
 
         function updateStatsSummary(data) {
             let completeCount = 0;
@@ -631,17 +750,11 @@
             
             totalComplete.textContent = completeCount;
             totalCheckIn.textContent = checkInOnlyCount;
-            
-            if (dateDropdown.value === "all") {
-                totalIncomplete.textContent = checkInOnlyCount; 
-            } else {
-                totalIncomplete.textContent = incompleteCount;
-            }
+            totalIncomplete.textContent = incompleteCount; 
         }
-
-        function renderData(data) {
-            updateStatsSummary(data);
-            
+        
+        // New function to handle table and card rendering
+        function renderTableAndCards(data) {
             foundCountSpan.textContent = data.length;
 
             tableBody.innerHTML = ''; 
@@ -708,22 +821,27 @@
             
             // Initialize Swiper (Mobile Only)
             if (data.length > 0 && window.innerWidth <= 768) { 
-                if (!cardSwiper) {
-                    cardSwiper = new Swiper('.card-swiper', {
-                        loop: false, 
-                        slidesPerView: 1, 
-                        spaceBetween: 10,
-                        pagination: {
-                            el: '.swiper-pagination',
-                            clickable: true, 
-                        },
-                        autoHeight: true, 
-                    });
-                } else {
-                    cardSwiper.update();
-                }
+                initSwiper(data);
             }
         }
+        
+        function initSwiper(data) {
+            if (!cardSwiper && data.length > 0) {
+                cardSwiper = new Swiper('.card-swiper', {
+                    loop: false, 
+                    slidesPerView: 1, 
+                    spaceBetween: 10,
+                    pagination: {
+                        el: '.swiper-pagination',
+                        clickable: true, 
+                    },
+                    autoHeight: true, 
+                });
+            } else if (cardSwiper) {
+                cardSwiper.update();
+            }
+        }
+
 
         function applyFilters() {
             const searchTerm = searchInput.value.toLowerCase();
@@ -746,28 +864,41 @@
             
             filteredData.sort((a, b) => a.id.localeCompare(b.id));
 
-            renderData(filteredData); 
+            updateAllStatsAndTables(filteredData); 
         }
 
         searchInput.addEventListener('input', applyFilters);
         dateDropdown.addEventListener('change', applyFilters);
 
-        // Mobile Toggle Script 
-        const navToggle = document.querySelector('.mobile-nav-toggle');
-        const controlsHeader = document.getElementById('mobile-collapsible-controls');
-        
-        navToggle.addEventListener('click', () => {
-            controlsHeader.classList.toggle('controls-visible');
-            const isVisible = controlsHeader.classList.contains('controls-visible');
-            navToggle.setAttribute('aria-expanded', isVisible);
+        // --- CORRECTED MOBILE TOGGLE SCRIPT ---
+        mobileNavToggle.addEventListener('click', () => {
+             const isControlsVisible = controlsHeaderWrapper.classList.contains('controls-visible');
             
-            const iconUse = navToggle.querySelector('use');
-            if (isVisible) {
-                iconUse.setAttribute('href', '#icon-close');
-            } else {
-                iconUse.setAttribute('href', '#icon-menu');
-            }
+             // Action 1: If on mobile, and the controls are currently hidden OR on the home page, switch to report page first.
+             // This ensures the controls context (filters) is available.
+             if (window.innerWidth <= 768) {
+                if (!isControlsVisible || currentPage === 'home-page') {
+                    showPage('report-page');
+                }
+             }
+
+             // Action 2: Toggle the visibility of the controls (filters)
+             controlsHeaderWrapper.classList.toggle('controls-visible');
+             
+             // Check visibility again after toggle
+             const isVisibleNow = controlsHeaderWrapper.classList.contains('controls-visible');
+            
+             // Action 3: Update ARIA and Icon based on visibility
+             mobileNavToggle.setAttribute('aria-expanded', isVisibleNow);
+            
+             const iconUse = mobileNavToggle.querySelector('use');
+             if (isVisibleNow) {
+                 iconUse.setAttribute('href', '#icon-close');
+             } else {
+                 iconUse.setAttribute('href', '#icon-menu');
+             }
         });
+        // --- END CORRECTED MOBILE TOGGLE SCRIPT ---
 
         init();
     </script>

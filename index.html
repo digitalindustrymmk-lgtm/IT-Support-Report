@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="km">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📊 របាយការណ៍វត្តមាន IT Support</title>
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    
+    <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+        <symbol id="icon-menu" viewBox="0 0 24 24">
+            <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+        </symbol>
+    </svg>
+    <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+        <symbol id="icon-close" viewBox="0 0 24 24">
+            <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+        </symbol>
+    </svg>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+    <style>
+        /* --- Global Styles --- */
+        body {
+            font-family: 'Kantumruy Pro', sans-serif;
+            background-color: #f0f2f5; 
+            color: #333;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        /* --- Header Styles --- */
+        .main-header {
+            background-color: #ffffff; 
+            border-bottom: 1px solid #e0e0e0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px; 
+        }
+
+        .logo-title .title {
+            font-size: 22px;
+            font-weight: 700;
+            color: #0056b3;
+        }
+
+        .mobile-nav-toggle {
+            display: none; 
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+            line-height: 0;
+        }
+
+        .mobile-nav-toggle svg {
+            fill: #333;
+            width: 28px;
+            height: 28px;
+            transition: transform 0.3s;
+        }
+        
+        /* --- Controls in Header --- */
+        .controls-header-wrapper {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px 20px 20px; 
+            background-color: #ffffff;
+        }
+
+        .controls-header-wrapper .controls {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap; 
+        }
+        
+        #searchInput, #dateDropdown {
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            font-family: 'Kantumruy Pro', sans-serif;
+            box-sizing: border-box;
+            transition: border-color 0.3s, box-shadow 0.3s;
+            flex: 1;
+            min-width: 200px;
+            background-color: #fff;
+        }
+
+        #searchInput:focus, #dateDropdown:focus {
+            border-color: #007bff;
+            box-shadow: 0 0 8px rgba(0,123,255,0.2);
+            outline: none;
+        }
+        /* --- End Controls Section --- */
+
+        /* --- Main Content --- */
+        main {
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08); 
+            padding: 30px; 
+            position: relative;
+        }
+        
+        /* Total Found Bar Style */
+        #total-found {
+            font-size: 1.2em;
+            font-weight: 700;
+            color: #333;
+            padding: 15px 0;
+            margin-top: 15px;
+            border-top: 1px solid #e0e0e0;
+            border-bottom: 2px solid #007bff;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        #found-count {
+            color: #007bff;
+            font-size: 1.4em;
+        }
+        
+        /* --- Stats Section (Improved Style) --- */
+        .stats-summary {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-bottom: 25px;
+            padding: 10px;
+        }
+
+        .stat-card {
+            flex: 1;
+            min-width: 280px;
+            background: #ffffff;
+            border: 1px solid #f0f0f0;
+            border-radius: 16px;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .icon-wrap {
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 16px;
+            font-size: 2em;
+            flex-shrink: 0;
+            background: rgba(255, 255, 255, 0.9);
+        }
+
+        .label {
+            font-size: 0.95em;
+            font-weight: 500;
+            color: #555;
+            margin: 0;
+        }
+
+        .value {
+            font-size: 2em;
+            font-weight: 800;
+            margin: 5px 0 0;
+            color: #111;
+        }
+
+        /* Color themes */
+        .stat-complete { border-left: 5px solid #10ac84; }
+        .stat-complete .icon-wrap { color: #10ac84; background-color: #e6ffed; }
+        .stat-complete .value { color: #10ac84; }
+
+        .stat-checkin { border-left: 5px solid #e1a500; }
+        .stat-checkin .icon-wrap { color: #e1a500; background-color: #fff7e0; }
+        .stat-checkin .value { color: #e1a500; }
+
+        .stat-incomplete { border-left: 5px solid #ee5253; }
+        .stat-incomplete .icon-wrap { color: #ee5253; background-color: #fdeaea; }
+        .stat-incomplete .value { color: #ee5253; }
+        /* --- End Stats Section --- */
+
+
+        .table-wrapper { overflow-x: auto; }
+
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; border-radius: 10px; overflow: hidden; }
+
+        th, td { padding: 18px 20px; text-align: left; border-bottom: 1px solid #e9ecef; font-size: 0.95em; }
+
+        thead th {
+            background-color: #007bff;
+            color: #ffffff;
+            font-weight: 600;
+        }
+
+        tbody tr:nth-child(even) { background-color: #f7f9fb; }
+        tbody tr:hover { background-color: #e9f7ff; }
+
+        /* --- Card View (Mobile) --- */
+        #card-view-container { display: none; } 
+
+        .data-card {
+            background: #ffffff;
+            border: 1px solid #e0e0e0;
+            border-radius: 10px;
+            margin-bottom: 15px; 
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+            padding: 15px;
+        }
+        
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #f0f0f0;
+            padding-bottom: 10px;
+            margin-bottom: 10px;
+        }
+
+        .card-name { font-size: 1.2em; font-weight: 700; color: #0056b3; }
+        .card-id { font-size: 0.9em; color: #fff; background-color: #007bff; padding: 4px 8px; border-radius: 12px; }
+
+        .card-body p { margin: 10px 0; display: flex; justify-content: space-between; font-size: 1em; }
+        .card-body p strong { color: #333; font-weight: 600; margin-right: 10px; }
+        .card-body p span { color: #555; text-align: right; font-weight: 500;}
+
+
+        /* --- SWIPER CSS --- */
+        .card-swiper { width: 100%; height: auto; padding-bottom: 40px !important; }
+        .swiper-slide { height: auto; padding: 0 10px; box-sizing: border-box; }
+        :root { --swiper-theme-color: #007bff; --swiper-navigation-size: 30px; }
+        
+        /* Hide arrows on mobile for better UX */
+        .swiper-button-next, .swiper-button-prev { 
+            display: none !important;
+        }
+
+        /* --- Loader Overlay --- */
+        .loading-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+            border-radius: 12px;
+            transition: opacity 0.3s;
+        }
+
+        .loader {
+            border: 5px solid #e0e0e0;
+            border-top: 5px solid #0056b3;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* --- RESPONSIVE DESIGN (Mobile) --- */
+        @media (max-width: 768px) {
+            
+            .header-container { padding: 15px; }
+            .mobile-nav-toggle { display: block; } 
+            
+            .controls-header-wrapper {
+                padding: 15px;
+                position: absolute;
+                top: 58px; 
+                left: 0;
+                right: 0;
+                background-color: #f7f9fb;
+                border-top: 1px solid #f0f0f0;
+                box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+                display: none; 
+            }
+
+            .controls-header-wrapper.controls-visible { display: block; }
+            
+            .controls-header-wrapper .controls { flex-direction: column; }
+
+            main { padding: 15px; } 
+            
+            .container {
+                padding: 15px;
+                background-color: #ffffff; /* Keep background white on mobile container */
+                box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08); 
+            }
+
+            .stats-summary { flex-direction: column; gap: 15px; margin-bottom: 20px; padding: 0; }
+            .stat-card { padding: 15px; }
+            
+            /* Hide Table on Mobile */
+            .table-wrapper { display: none; }
+            
+            /* Show Card View (Swiper) on Mobile */
+            #card-view-container { display: block; }
+            
+            #total-found {
+                font-size: 1em;
+                padding: 10px 0;
+                margin-top: 10px;
+            }
+            #found-count {
+                font-size: 1.2em;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="main-header">
+        
+        <div class="header-container">
+            <div class="logo-title">
+                <span class="title">📊 IT Support Report</span>
+            </div>
+            
+            <button class="mobile-nav-toggle" aria-label="Toggle filters" aria-expanded="false">
+                <svg width="24" height="24"><use href="#icon-menu"></use></svg>
+            </button>
+        </div>
+
+        <div class="controls-header-wrapper" id="mobile-collapsible-controls">
+            <div class="controls">
+                <input type="text" id="searchInput" placeholder="ស្វែងរកតាមឈ្មោះ ឬ ID...">
+                <select id="dateDropdown"></select>
+            </div>
+        </div>
+    </header>
+    
+    <main>
+        <div class="container">
+            
+            <div id="loading-overlay" class="loading-overlay" style="display: none;">
+                <div class="loader"></div>
+            </div>
+
+            <div class="stats-summary" id="stats-summary">
+                <div class="stat-card stat-complete">
+                    <div class="icon-wrap"><i class="fas fa-check-circle"></i></div>
+                    <div class="info">
+                        <p class="label">វត្តមានពេញលេញ</p>
+                        <p class="value" id="total-complete">0</p>
+                    </div>
+                </div>
+
+                <div class="stat-card stat-checkin">
+                    <div class="icon-wrap"><i class="fas fa-sign-in-alt"></i></div>
+                    <div class="info">
+                        <p class="label">ស្កេនចូលតែប៉ុណ្ណោះ</p>
+                        <p class="value" id="total-checkin">0</p>
+                    </div>
+                </div>
+
+                <div class="stat-card stat-incomplete">
+                    <div class="icon-wrap"><i class="fas fa-times-circle"></i></div>
+                    <div class="info">
+                        <p class="label">មិនពេញលេញ / អវត្តមាន</p>
+                        <p class="value" id="total-incomplete">0</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="total-found">
+                <span>ចំនួនសរុបដែលបានរកឃើញ:</span> <span id="found-count">0</span>
+            </div>
+
+            
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ល.រ</th>
+                            <th>ឈ្មោះ (Name)</th>
+                            <th>ID បុគ្គលិក</th>
+                            <th>ស្កេនចូល (Check In)</th>
+                            <th>ស្កេនចេញ (Check Out)</th>
+                            <th>ថ្ងៃដែលបានស្កេន (Scan Date)</th>
+                        </tr>
+                    </thead>
+                    <tbody id="table-body">
+                    </tbody>
+                    <tfoot>
+                        <tr id="no-data-row" style="display: none;">
+                            <td colspan="6" style="text-align: center; color: #777;">
+                                មិនមានទិន្នន័យត្រូវគ្នានឹងការស្វែងរកទេ។
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+            
+            <div id="card-view-container">
+                <div class="swiper card-swiper">
+                    <div class="swiper-wrapper">
+                    </div>
+                    
+                    <div class="swiper-pagination"></div>
+                </div>
+            </div>
+            
+            <div id="no-results" class="no-results" style="display: none; text-align: center; padding: 20px; color: #dc3545; font-weight: 600;">
+                មិនមានទិន្នន័យត្រូវគ្នានឹងការស្វែងរកទេ។
+            </div>
+        </div>
+    </main>
+    
+    
+    <script>
+        const dbkSheetURL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQX5IErGt-WAufmBbFY8qT03CLrwqIaQZqznDC4gx47v4UEl3cnpy1rPsd1mJvC8ZGTwwsNW916FKh1/pub?gid=0&single=true&output=csv';
+        const ilistSheetURL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRny6z0kXP2O7d1Yl4tUk0m9J-vo-Ebw72MZIm5Nq2veCqFu18F-0Wgj06XeKyhABjbG1jQmWyQd-Sa/pub?gid=1542294647&single=true&output=csv';
+
+        const tableBody = document.getElementById('table-body');
+        const loadingOverlay = document.getElementById('loading-overlay');
+        const searchInput = document.getElementById('searchInput');
+        const dateDropdown = document.getElementById('dateDropdown');
+        const noResultsDiv = document.getElementById('no-results');
+        const noDataRow = document.getElementById('no-data-row'); 
+        const swiperWrapper = document.querySelector('#card-view-container .swiper-wrapper');
+        const foundCountSpan = document.getElementById('found-count');
+
+        const totalComplete = document.getElementById('total-complete');
+        const totalCheckIn = document.getElementById('total-checkin');
+        const totalIncomplete = document.getElementById('total-incomplete');
+
+        let cardSwiper = null; 
+        let combinedData = []; 
+
+        function showLoading(show) {
+            loadingOverlay.style.display = show ? 'flex' : 'none';
+        }
+
+        async function fetchCSV(url) {
+            try {
+                const response = await fetch(url);
+                if (!response.ok) {
+                    throw new Error(`Network response was not ok: ${response.statusText}`);
+                }
+                const text = await response.text();
+                const rows = text.split('\n');
+                return rows.map(row => row.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/).map(cell => cell.trim().replace(/"/g, ''))); 
+            } catch (error) {
+                console.error('Error fetching data:', error);
+                return [];
+            }
+        }
+
+        function getTodayDateString() {
+            const today = new Date();
+            const d = String(today.getDate()).padStart(2, '0');
+            const m = String(today.getMonth() + 1).padStart(2, '0'); 
+            const y = String(today.getFullYear()).slice(-2); 
+            return `${d}-${m}-${y}`; 
+        }
+
+        function parseDateString(dateStr) {
+            const parts = dateStr.match(/(\d{2})-(\d{2})-(\d{2})/);
+            if (!parts) return new Date(0); 
+            const [, day, month, year] = parts.map(Number);
+            const fullYear = (year < 70 ? 2000 + year : 1900 + year); 
+            return new Date(fullYear, month - 1, day); 
+        }
+
+        function populateDateDropdown(dates) {
+            dateDropdown.innerHTML = ''; 
+
+            const allOption = document.createElement('option');
+            allOption.value = "all";
+            allOption.textContent = "បង្ហាញទិន្នន័យទាំងអស់ (All Dates)";
+            dateDropdown.appendChild(allOption);
+
+            const today = getTodayDateString();
+            
+            if (dates.includes(today)) {
+                const todayOption = document.createElement('option');
+                todayOption.value = today;
+                todayOption.textContent = `ថ្ងៃនេះ (${today})`;
+                dateDropdown.appendChild(todayOption);
+            }
+
+            dates.forEach(date => {
+                if (date.trim() !== "" && date !== today) {
+                    const option = document.createElement('option');
+                    option.value = date;
+                    option.textContent = date;
+                    dateDropdown.appendChild(option);
+                }
+            });
+        }
+
+        async function init() {
+            showLoading(true);
+            
+            const [dbkData, ilistData] = await Promise.all([
+                fetchCSV(dbkSheetURL),
+                fetchCSV(ilistSheetURL)
+            ]);
+
+            if (dbkData.length <= 1 || ilistData.length <= 8) {
+                showLoading(false);
+                if (dbkData.length === 0 || ilistData.length === 0) {
+                    noResultsDiv.textContent = 'បរាជ័យក្នុងការទាញទិន្នន័យ។';
+                    noResultsDiv.style.display = 'block';
+                }
+                return; 
+            }
+
+            const allDates = new Set();
+            dbkData.slice(1).forEach(row => {
+                if (row.length > 5 && row[5]) { allDates.add(row[5]); }
+            });
+            
+            const sortedDates = [...allDates].sort((a, b) => parseDateString(b) - parseDateString(a));
+
+            const itSupportMap = new Map();
+            ilistData.slice(8).forEach(row => {
+                if (row.length > 11) {
+                    const id = row[4].trim(); 
+                    const department = row[6].trim(); 
+                    const name = row[11].trim(); 
+                    if (department === 'IT Support' && id) {
+                        itSupportMap.set(id, name);
+                    }
+                }
+            });
+
+            combinedData = [];
+            dbkData.slice(1).forEach(row => {
+                if (row.length > 5) {
+                    const id = row[0].trim();
+                    if (itSupportMap.has(id)) {
+                        combinedData.push({
+                            name: itSupportMap.get(id),
+                            id: id,
+                            checkIn: row[1] ? row[1].trim() : '',
+                            checkOut: row[2] ? row[2].trim() : '',
+                            scanDate: row[5].trim()
+                        });
+                    }
+                }
+            });
+
+            populateDateDropdown(sortedDates);
+            
+            const todayString = getTodayDateString();
+            if (allDates.has(todayString)) {
+                dateDropdown.value = todayString;
+            } else {
+                if (sortedDates.length > 0) {
+                    dateDropdown.value = sortedDates[0]; 
+                } else {
+                    dateDropdown.value = "all";
+                }
+            }
+            
+            applyFilters(); 
+            showLoading(false);
+        }
+
+        function updateStatsSummary(data) {
+            let completeCount = 0;
+            let checkInOnlyCount = 0;
+            let incompleteCount = 0; 
+
+            const uniqueRecords = {};
+            data.forEach(item => {
+                const key = `${item.id}_${item.scanDate}`;
+                
+                if (!uniqueRecords[key]) {
+                    uniqueRecords[key] = {
+                        hasIn: item.checkIn !== '',
+                        hasOut: item.checkOut !== ''
+                    };
+                } else {
+                    if (item.checkIn) uniqueRecords[key].hasIn = true;
+                    if (item.checkOut) uniqueRecords[key].hasOut = true;
+                }
+            });
+
+            Object.values(uniqueRecords).forEach(record => {
+                if (record.hasIn && record.hasOut) {
+                    completeCount++;
+                } else if (record.hasIn && !record.hasOut) {
+                    checkInOnlyCount++;
+                    incompleteCount++; 
+                } else {
+                    incompleteCount++; 
+                }
+            });
+            
+            totalComplete.textContent = completeCount;
+            totalCheckIn.textContent = checkInOnlyCount;
+            
+            if (dateDropdown.value === "all") {
+                totalIncomplete.textContent = checkInOnlyCount; 
+            } else {
+                totalIncomplete.textContent = incompleteCount;
+            }
+        }
+
+        function renderData(data) {
+            updateStatsSummary(data);
+            
+            foundCountSpan.textContent = data.length;
+
+            tableBody.innerHTML = ''; 
+            swiperWrapper.innerHTML = '';
+            noDataRow.style.display = 'none';
+            
+            if (cardSwiper) {
+                cardSwiper.destroy(true, true);
+                cardSwiper = null;
+            }
+
+            if (data.length === 0) {
+                noResultsDiv.style.display = 'block';
+                noDataRow.style.display = 'table-row';
+                return;
+            }
+            noResultsDiv.style.display = 'none';
+
+            const itemsPerSlide = 6;
+            let currentSlide = null;
+
+            data.forEach((item, i) => {
+                
+                // Table Row
+                const checkInDisplay = item.checkIn || '<span style="color: #dc3545; font-weight: 600;">N/A</span>';
+                const checkOutDisplay = item.checkOut || '<span style="color: #dc3545; font-weight: 600;">N/A</span>';
+
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${i + 1}</td>
+                    <td>${item.name}</td>
+                    <td>${item.id}</td>
+                    <td>${checkInDisplay}</td>
+                    <td>${checkOutDisplay}</td>
+                    <td>${item.scanDate}</td>
+                `;
+                tableBody.appendChild(row);
+
+                // Card Swiper Slide
+                if (i % itemsPerSlide === 0) {
+                    currentSlide = document.createElement('div');
+                    currentSlide.className = 'swiper-slide';
+                    swiperWrapper.appendChild(currentSlide);
+                }
+
+                const card = document.createElement('div');
+                card.className = 'data-card'; 
+                card.innerHTML = `
+                    <div class="card-header">
+                        <span class="card-name">${i + 1}. ${item.name}</span>
+                        <span class="card-id">ID: ${item.id}</span>
+                    </div>
+                    <div class="card-body">
+                        <p><strong>ស្កេនចូល:</strong> <span>${item.checkIn || 'N/A'}</span></p>
+                        <p><strong>ស្កេនចេញ:</strong> <span>${item.checkOut || 'N/A'}</span></p>
+                        <p><strong>កាលបរិច្ឆេទ:</strong> <span>${item.scanDate}</span></p>
+                    </div>
+                `;
+                
+                if (currentSlide) {
+                    currentSlide.appendChild(card);
+                }
+            });
+            
+            // Initialize Swiper (Mobile Only)
+            if (data.length > 0 && window.innerWidth <= 768) { 
+                if (!cardSwiper) {
+                    cardSwiper = new Swiper('.card-swiper', {
+                        loop: false, 
+                        slidesPerView: 1, 
+                        spaceBetween: 10,
+                        pagination: {
+                            el: '.swiper-pagination',
+                            clickable: true, 
+                        },
+                        autoHeight: true, 
+                    });
+                } else {
+                    cardSwiper.update();
+                }
+            }
+        }
+
+        function applyFilters() {
+            const searchTerm = searchInput.value.toLowerCase();
+            const selectedDate = dateDropdown.value;
+
+            let filteredData = combinedData;
+
+            if (selectedDate !== "all") {
+                filteredData = filteredData.filter(item => 
+                    item.scanDate === selectedDate
+                );
+            }
+
+            if (searchTerm) {
+                filteredData = filteredData.filter(item =>
+                    item.name.toLowerCase().includes(searchTerm) ||
+                    item.id.toLowerCase().includes(searchTerm)
+                );
+            }
+            
+            filteredData.sort((a, b) => a.id.localeCompare(b.id));
+
+            renderData(filteredData); 
+        }
+
+        searchInput.addEventListener('input', applyFilters);
+        dateDropdown.addEventListener('change', applyFilters);
+
+        // Mobile Toggle Script 
+        const navToggle = document.querySelector('.mobile-nav-toggle');
+        const controlsHeader = document.getElementById('mobile-collapsible-controls');
+        
+        navToggle.addEventListener('click', () => {
+            controlsHeader.classList.toggle('controls-visible');
+            const isVisible = controlsHeader.classList.contains('controls-visible');
+            navToggle.setAttribute('aria-expanded', isVisible);
+            
+            const iconUse = navToggle.querySelector('use');
+            if (isVisible) {
+                iconUse.setAttribute('href', '#icon-close');
+            } else {
+                iconUse.setAttribute('href', '#icon-menu');
+            }
+        });
+
+        init();
+    </script>
+</body>
+</html>
